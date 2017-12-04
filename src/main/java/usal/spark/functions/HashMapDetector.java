@@ -79,9 +79,11 @@ public class HashMapDetector implements VoidFunction<
             
             Float modelValue = model.get(calendar.get(Calendar.MINUTE) % numSlots);
             
-            if (streamValue > modelValue) {
-                System.out.println("Anomaly detected, stream-based value (" + tuple._2()
-                        + ") is greater than the modeled one (" + modelValue + ")");
+            if (modelValue != 0.0) { 
+                if (streamValue / modelValue > 3) {
+                    System.out.println("[" + modelName + "] Anomaly detected, stream-based value (" + tuple._2()
+                            + ") is greater than the modeled one (" + modelValue + ")");
+                } // if
             } // if
         } // for
     } // call
